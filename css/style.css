@@ -39,6 +39,8 @@ html {
     font-size: 62.5%;
     /* Especificar que el elemento incluirá automáticamente el espacio ocupado por el relleno y el borde. Que una caja considere el ancho, el padding y el border. Si se utilizase el modelo de caja por defecto (content-box): clientWidth = width + padding + border no se sabría sino calculando el tamaño exacto de la caja, por ello mejor serí reemplazarlo por border-box: clientWidth = width - padding - border */
     box-sizing: border-box;
+    /* Se utiliza para controlar cómo un contenedor realiza el desplazamiento "snap" a ciertos puntos de anclaje, a través mandatory, se especifica que el desplazamiento debe "atrapar" necesariamente en los puntos de anclaje, y es que es de manera vertical */
+    scroll-snap-type: y mandatory;
 }
 
 body {
@@ -379,4 +381,18 @@ Absolute (position: absolute): Un elemento absolutamente posicionado es relativo
 
 .footer {
     text-align: center;
+}
+
+
+/* Se especifica cuando no se quiere que se aplique en movil */
+@media (min-width: 768px) {
+
+    /* Se remarca las clases que se desea tengan ese anclaje */
+    .services,
+    .navigation-main,
+    .form {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
 }
