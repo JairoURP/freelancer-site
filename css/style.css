@@ -1,0 +1,380 @@
+/* Se colocan algunos atributos globales que se apliquen a ciertos elementos, ya que se reutilizan continuamente, cuando se realiza un cambio en varias partes del archivo, se puede modificar en la raíz y cambiarse totalmente, es como una variable */
+
+/* 
+px: medida absoluta
+  - Fácil de manejar
+  - No recomendado para responsive (tablets, celulares, smartwatch, etc), no cambia según el tamaño de la pantalla, se adapta sólo para computadoras.
+
+em: medida relativa al padre
+  - Difícil de manejar.
+
+rem: medida relativa al root
+   - Fácil de manejar, a excepción de las medidas (por las conversiones a pixeles, se usa cálculos continuos).
+   - Recomendado para responsive
+   - Se puede volver fácil de manejar con un hack:
+   html {
+       font-size: 62.5%;
+   }
+
+   body {
+       font-size: 16px;
+   }
+
+   Ahora 1rem = 10px
+*/
+
+:root {
+    --white: #FFFFFF;
+    /* Se coloca 212121 indicando que sea un color negro no tan oscuro */
+    --black: #212121;
+    --primary: #FFC107;
+    --secondary: #0097A7;
+    --gray: #757575;
+    --gray-light: #DFE9F3;
+}
+
+/* Hack de conversión */
+html {
+    /* Establecer un tamaño específico a la pantalla */
+    font-size: 62.5%;
+    /* Especificar que el elemento incluirá automáticamente el espacio ocupado por el relleno y el borde. Que una caja considere el ancho, el padding y el border. Si se utilizase el modelo de caja por defecto (content-box): clientWidth = width + padding + border no se sabría sino calculando el tamaño exacto de la caja, por ello mejor serí reemplazarlo por border-box: clientWidth = width - padding - border */
+    box-sizing: border-box;
+}
+
+body {
+    /* Agregarle tamaño al contenido de la pantalla, así se equipara el cambio */
+    font-size: 16px;
+    /* Se utiliza el font family especificado, en caso de que no se encuentre utilice la familia sans-serif  */
+    font-family: 'Krub', sans-serif;
+}
+
+/* Esto lo que hace es hacer que en tu html se use border-box y los elementos hereden este valor pero puedan cambiar si fuese necesario por otro valor (aunque es poco probable que lo uses quién sabe si cargas algún componente de tercero que sí). */
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+/* Dándole estilo al título */
+.title {
+    text-align: center;
+    font-size: 3.8rem;
+}
+
+/* Realizando la especificidad indicando un estilo, sabiendo que span es hijo de title */
+.title span {
+    font-size: 2rem;
+}
+
+/* Typography: Se especifica que los títulos tengan cierto tamaño específico */
+
+h1 {
+    font-size: 3.8rem;
+}
+
+h2 {
+    font-size: 2.8rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+}
+
+/* Utilities */
+
+.w-sm-100 {
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.align-right {
+    justify-content: flex-end;
+}
+
+/* Navigation */
+
+.nav-bg {
+    background-color: var(--secondary);
+}
+
+.navigation-main {
+    /* Permite crear diseños de cajas flexibles y responsivos con facilidad. */
+    display: flex;
+    /* Que los elementos se pongan en una columna*/
+    flex-direction: column;
+}
+
+/* Definiendo que la página de ser responsive, se puede ver primero mobile, mobile first o desktop first */
+/* Media query cuando tenga de 768 a más, cuando se cumpla se activará el contenido */
+/* @media (min-width: 768px) antigua más usada, nueva más entendible { */
+@media (width >=768px) {
+    .navigation-main {
+        /* Que todos los elementos del navigation-main se pongan en una sola fila */
+        flex-direction: row;
+        /* Justificación del contenido (Inicio, Nosotros, Clientes, Contacto). */
+        /* Los elementos se van al borde del contenedor */
+        justify-content: space-between;
+    }
+
+    .button {
+        /* Ancho automático, cuando sea menor se reemplazará con 90% */
+        width: auto;
+    }
+
+    .services {
+        /* display: grid es una propiedad de CSS que se utiliza para crear diseños de páginas web con una estructura de cuadrícula. Esta característica se conoce como "CSS Grid" y permite dividir una página en filas y columnas, de manera similar a una cuadrícula, y luego colocar elementos HTML en estas filas y columnas de una manera más controlada y predecible que con otras técnicas de diseño. */
+        display: grid;
+        /* Repite la agrupación en 3 columnas, es lo mismo que 1fr 1fr 1fr */
+        grid-template-columns: repeat(3, 1fr);
+        /* Espacio entre cada columna */
+        column-gap: 1rem;
+    }
+
+    .fields-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1rem;
+    }
+}
+
+.button:hover {
+    /* Cuando se seleccione el botón con el mouse se muestra el cursor */
+    cursor: pointer;
+}
+
+.container {
+    /* Se especifica que el contenedor tenga como máximo 1200 px */
+    max-width: 120rem;
+    /* se utiliza para centrar horizontalmente un elemento dentro de su contenedor
+    margin: 0: Esto establece el margen superior e inferior del elemento en 0 píxeles, es decir, no hay margen en la parte superior ni en la parte inferior. 
+    margin: auto: Esto establece el margen izquierdo y derecho del elemento en "auto". El valor "auto" automáticamente distribuye el espacio disponible en igual cantidad a ambos lados del elemento, lo que tiene el efecto de centrar horizontalmente el elemento dentro de su contenedor principal. 
+    Cuando se ponen solo 2 valores se repetite, el orden que se da es arriba, derecha, abajo, izquierda, como las agujas del reloj.*/
+    margin: 0 auto;
+}
+
+.navigation-main a {
+    /* Display: block;
+        se utiliza para dar a un elemento HTML el comportamiento típico de un "bloque" en el flujo de contenido,
+        permitiendo su personalización en términos de ancho,
+        alto,
+        márgenes,
+        relleno y otros aspectos de diseño.
+        Que tome el espacio a pesar de que el tamaño de la pantalla varíe. */
+    display: block;
+    /* Se centra */
+    text-align: center;
+    /* Se espicifíca el color de cada hijo */
+    color: var(--white);
+    /* Se le quita la decoración el underline */
+    text-decoration: none;
+    /* Tamaño de letra */
+    font-size: 2rem;
+    /* Poniendo en negrita */
+    font-weight: bold;
+    /* Espaciado de adentro así afuera */
+    padding: 1rem;
+}
+
+/* Pseduo clase hover que se activa cada vez que el mouse pasa por encima del elemento */
+.navigation-main a:hover {
+    background-color: var(--primary);
+    color: var(--black);
+}
+
+.hero {
+    background-image: url("/img/hero.jpg");
+    /* Definiendo que la imagen puesta no se repita al ponerse más pequeña la pantalla */
+    background-repeat: no-repeat;
+    /* Que la imagen se adecue siempre ocupe el espacio de la section */
+    background-size: cover;
+    /* Se le da una altura fija */
+    height: 450px;
+    /* Posición relativa del padre */
+    position: relative;
+    /* Márgen en la parte de atrás */
+    margin-bottom: 2rem;
+}
+
+/* Definición de posiciones:
+Static (position: static): es el valor por defecto.
+Relative (position: relative): La nueva posición de un elemento en relación con su posición normal.
+Absolute (position: absolute): Un elemento absolutamente posicionado es relativo a su padre. */
+
+.content-hero {
+    /* position: relative se basa en la posición original del elemento en el flujo de contenido y no elimina su espacio, lo que significa que otros elementos aún pueden interactuar con él.
+        position: absolute se basa en la posición de un ancestro posicionado (o el viewport si no se encuentra ninguno) y elimna el espacio que ocupaba en el flujo de contenido original, lo que puede resultar en superposiciones con otros elementos. */
+    position: absolute;
+    /* Se dice que la división que contiene todos los elementos de la sección hero tenga cierta opacidad de negro */
+    background-color: rgb(0, 0, 0, .7);
+    /* Que ocupe el 100% de su ancho */
+    width: 100%;
+    /* Que ocupe el 100% de su altura */
+    height: 100%;
+    /* Esta propiedad permite crear un contexto de diseño flexible en el cual los elementos secundarios (hijos) del contenedor se pueden organizar y ajustar automáticamente para llenar el espacio disponible de manera más eficiente. */
+    display: flex;
+    /* Para poner todo el contenido en modo de columna */
+    flex-direction: column;
+    /* Alineo todo al medio */
+    align-items: center;
+    /* Se alinea verticalmente */
+    justify-content: center;
+}
+
+.content-hero h2 {
+    color: var(--white);
+}
+
+.content-hero p {
+    color: var(--white);
+}
+
+.content-hero .location {
+    display: flex;
+    /* Lo ubica en la parte más izquierda y abajo de la división */
+    align-items: flex-end;
+}
+
+.button {
+    /* Dándole un color de fondo */
+    background-color: var(--secondary);
+    /* Dándole color al texto */
+    color: white;
+    /* Padding */
+    padding: 1rem 3rem;
+    /* Espaciado arriba */
+    margin-top: 3rem;
+    /* Que no tenga ninguna decoración predeterminada */
+    text-decoration: none;
+    /* Transformando a mayúsculas */
+    text-transform: uppercase;
+    /* Poniéndolo en negrita */
+    font-weight: bold;
+    /* Que se le de cierta curvatura a las esquinas, 5 píxeles */
+    border-radius: .5rem;
+    /* Que ocupe el 90% */
+    width: 90%;
+    text-align: center;
+    border: none;
+}
+
+.shadow {
+    /* Que lo soporten todos los navegadores Chrome */
+    -webkit-box-shadow: 0px 5px 15px 0px rgb(0, 0, 0, .54);
+    /* Que lo soporten todos los navegadores Firefox */
+    -moz-box-shadow: 0px 5px 15px 0px rgb(0, 0, 0, .54);
+    /* La propiedad CSS box-shadow se utiliza para agregar sombras a los elementos en una página web.
+        box-shadow: h-offset v-offset blur spread color;
+            Donde:
+        
+                h-offset: Especifica el desplazamiento horizontal de la sombra.
+                v-offset: Especifica el desplazamiento vertical de la sombra. 
+                blur: Opcional, define la cantidad de desenfoque que se aplica a la sombra. 
+                spread: Opcional, define la expansión de la sombra. 
+                color: Especifica el color de la sombra y difuminación.         
+         */
+
+    /* box-shadow: 0px 5px 15px 0px; */
+    box-shadow: 0px 5px 15px 0px rgb(0, 0, 0, .54);
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.service {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.service h3 {
+    color: var(--secondary);
+    font-weight: normal;
+}
+
+.service p {
+    /* Espaciado entre líneas */
+    line-height: 2;
+    /* Que se encuentre alineado en el centro */
+    text-align: center;
+}
+
+.service .icons {
+    background-color: var(--primary);
+    height: 15rem;
+    width: 15rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.form {
+    background-color: var(--gray);
+    /* Lo que hace es escoger el mínimo tamaño entre el valor indicado y el tamaño de la pantalla */
+    width: min(60rem, 100%);
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.form fieldset {
+    border: none;
+}
+
+.form legend {
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--primary);
+}
+
+.field {
+    margin-bottom: 1rem;
+}
+
+/* Se especifica que se quiere seleccionar el tercer y el cuarto hijo */
+.field:nth-child(3),
+.field:nth-child(4) {
+    /* La propiedad CSS grid-column se utiliza en combinación con CSS Grid Layout para especificar la ubicación de un elemento dentro de una cuadrícula.
+    En el caso de grid-column: 1 / 2, estos números indican lo siguiente:
+    
+    El primer número (1) representa la línea de inicio de la columna. 
+    El segundo número (2) representa la línea de finalización de la columna.
+    */
+    grid-column: 1 / 3;
+}
+
+.field label {
+    color: var(--white);
+    font-weight: bold;
+    /* Los elementos de bloque son aquellos que ocupan todo el ancho disponible de su contenedor y comienzan en una nueva línea,
+        lo que significa que, por defecto, se muestran en una línea vertical separada. */
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.field textarea {
+    height: 20rem;
+}
+
+.input-text {
+    width: 100%;
+    border: none;
+    padding: 1.5rem;
+    border-radius: .5rem;
+}
+
+.footer {
+    text-align: center;
+}
