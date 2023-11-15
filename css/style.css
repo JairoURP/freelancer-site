@@ -191,7 +191,7 @@ h3 {
 }
 
 .hero {
-    background-image: url("/img/hero.jpg");
+    background-image: url("img/hero.jpg");
     /* Definiendo que la imagen puesta no se repita al ponerse más pequeña la pantalla */
     background-repeat: no-repeat;
     /* Que la imagen se adecue siempre ocupe el espacio de la section */
