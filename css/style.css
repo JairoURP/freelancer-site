@@ -46,6 +46,8 @@ body {
     font-size: 16px;
     /* Se utiliza el font family especificado, en caso de que no se encuentre utilice la familia sans-serif  */
     font-family: 'Krub', sans-serif;
+    /* Agregando una gradiente a la página, es decir que el cambio de colores que se defina se realizará progresivamente */
+    background-image: linear-gradient(to top, var(--gray-light) 0%, var(--white) 100%);
 }
 
 /* Esto lo que hace es hacer que en tu html se use border-box y los elementos hereden este valor pero puedan cambiar si fuese necesario por otro valor (aunque es poco probable que lo uses quién sabe si cargas algún componente de tercero que sí). */
@@ -191,7 +193,7 @@ h3 {
 }
 
 .hero {
-    background-image: url("img/hero.jpg");
+    background-image: url("/img/hero.jpg");
     /* Definiendo que la imagen puesta no se repita al ponerse más pequeña la pantalla */
     background-repeat: no-repeat;
     /* Que la imagen se adecue siempre ocupe el espacio de la section */
